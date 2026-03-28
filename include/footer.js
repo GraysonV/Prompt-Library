@@ -1,4 +1,4 @@
-// Script that injects the header HTML into any page with an element of the id "footer"
+// Script that injects the footer HTML into any page with an element of the id "footer"
 
 // Start specific footer code.
 let footerYear = new Date().getFullYear()
