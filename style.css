@@ -1,0 +1,118 @@
+body {
+	overflow-y: scroll;
+	font-family: sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+h2, p {
+	margin: 10px;
+}
+
+hr {
+	height: 2px;
+	margin-left: 1em;
+	margin-right: 1em;
+	border-width: 0;
+	background-color: lightgray;
+	color: lightgray;
+}
+
+.header {
+	overflow: hidden;
+	background-color: #187ABF;
+	box-shadow: 0px 2px 5px darkgray;
+}
+
+.header a {
+	float: left;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+	transition: 0.15s;
+}
+
+.header a:hover {
+	background-color: #0067BE;
+	color: white;
+}
+
+.header-mobile {
+	display: none;
+	color: white;
+}
+
+.header .search-container {
+	float: right;
+}
+
+.header input[type=text] {
+	padding: 6px;
+	margin-top: 8px;
+	font-size: 17px;
+	border: none;
+}
+
+.header .search-container button {
+	float: right;
+	padding: 6px 10px;
+	margin-top: 8px;
+	margin-right: 16px;
+	background: #0DB88F;
+	font-size: 17px;
+	border: none;
+	cursor: pointer;
+	transition: 0.15s;
+}
+
+.header .search-container button:hover {
+	background: #07A881;
+}
+
+.search-button {
+	color: white;
+	max-height: 1em;
+	overflow: hidden;
+}
+
+@media screen and (max-width: 650px) {
+	.header .search-container {
+		float: none;
+	}
+	.header-menu {
+		display: block;
+	}
+	.header-menu-hidden {
+		display: none;
+	}
+	.header-mobile {
+		display: block;
+		float: left;
+	}
+	
+	.header a, .header input[type=text], .header .search-container button {
+		float: none;
+		display: block;
+		text-align: left;
+		width: 100%;
+		margin: 0;
+		padding: 14px;
+	}
+	.header input[type=text] {
+		border: 1px solid #ccc;
+	}
+}
+
+/* https://stackoverflow.com/questions/4575826/#:~:text=While%20this */
+.flex-wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#footer {
+	margin-top: auto;
+}
