@@ -9,24 +9,25 @@ body {
 	margin: 0;
 	padding: 0;
 	height: 100%;
+	font-size: 1em;
 }
 
-h2, p {
-	margin: 10px;
+h1, h2, h3, h4, h5, h6, p {
+	margin: 1em;
 }
 
-button {
+button, input[type=submit] {
 	color: white;
 	padding: 0.5em;
-	background: #0DB88F;
+	background: #07A881;
 	font-size: 17px;
 	border: none;
 	cursor: pointer;
 	transition: 0.15s;
 }
 
-button:hover {
-	background: #07A881;
+button:hover, input[type=submit]:hover {
+	background: #009972;
 }
 
 hr {
@@ -38,10 +39,20 @@ hr {
 	color: lightgray;
 }
 
+label {
+	font-weight: bold;
+}
+
+input[type=text], input[type=email], input[type=password] {
+	padding: 0.25em;
+	font-size: large;
+}
+
 .header {
 	overflow: hidden;
 	background-color: #187ABF;
 	box-shadow: 0px 2px 5px darkgray;
+	color: white;
 }
 
 .header a {
@@ -52,6 +63,10 @@ hr {
 	text-decoration: none;
 	font-size: 17px;
 	transition: 0.15s;
+}
+
+.header-text {
+	padding: 14px 16px;
 }
 
 .header a:hover {
@@ -120,6 +135,37 @@ hr {
 	}
 }
 
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
+}
+
 /* The hero image (https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_hero_image) */
 .hero-image {
   background-image: url("images/hero_default.png");
@@ -150,6 +196,29 @@ hr {
   flex-direction: column;
   justify-content: flex-start;
 }
+
+/* Center Divs (ooh scary) */
+.center {
+	max-width: 600px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+	text-align: center;
+}
+
+.prompt-card {
+	margin: 1em;
+	border-top: 2px solid lightgray;
+
+}
+
+/*
+.prompt-title {}
+
+.prompt-content {}
+
+.prompt-meta {}
+*/
 
 #footer {
 	margin-top: auto;

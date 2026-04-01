@@ -15,20 +15,29 @@
 		<link href="/style.css" rel="stylesheet" type="text/css" media="all">
 	</head>
 	<body>
-
+		<span id="page" hidden>sign-in</span>
 		<div class="flex-wrapper">
 			<div id="header"></div>
 
 			<div id="content">
-				<div class="hero-image">
-					  <div class="hero-text">
-							<h1>Prompt Library</h1>
-							<p>From Code Ninjas Winnipeg</p>
-							<a href="browse.html"><button>See Prompts</button></a>
-						</div>
+				<div class="center">
+					<h1>Sign In</h1>
+					<p>Enter your username and password to sign in to your account.</p>
+					<form>
+						<label for="user-email">Username/Email</label><br>
+						<input type="email" id="user-email" name="user-email" placeholder="Username/Email" value=""><br>
+						<label for="user-password">Password</label><br>
+						<input type="password" id="user-password" name="user-password" placeholder="Password" value=""><br><br>
+					</form>
+					<button id="user-submit">Sign in</button>
+					<small>
+						<p>
+							<a href="/password-reset.html">Forgot Password?</a>
+						</p>
+						<p>New here? <a href="/sign-up.html">Sign up</a> and start contributing prompts!</p>
+					</small>
+
 				</div>
-				<h2>Horizontal Navbar Using Float</h2>
-				<p>Some text on the website.</p>
 			</div>
 
 			<div id="footer"></div>
@@ -36,6 +45,7 @@
 		</div>
 
 		<script src="/include/background/prompt.js"></script>
+		<script src="/include/background/auth.js"></script>
 		<script src="/include/header.js"></script>
 		<script src="/include/footer.js"></script>
 	</body>

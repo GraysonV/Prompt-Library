@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Ninjas Prompt Library</title>
+    <!-- Firebase Compat v10 -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .header { 
+            text-align: center; 
+            background: rgba(255,255,255,0.1); 
+            backdrop-filter: blur(20px); 
+            padding: 30px; 
+            border-radius: 25px; 
+            margin-bottom: 30px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .header h1 { color: white; font-size: 2.8rem; margin: 0 0 10px 0; }
+        .header .sponsor { color: #ffeb3b; font-size: 1.3rem; font-weight: bold; }
+        .card { 
+            background: rgba(255,255,255,0.95); 
+            backdrop-filter: blur(20px); 
+            border-radius: 20px; 
+            padding: 40px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+            margin-bottom: 30px; 
+        }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; }
+        .tab { 
+            flex: 1; 
+            padding: 18px 24px; 
+            background: #f8f9fa; 
+            border: none; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            font-size: 16px; 
+            transition: all 0.3s; 
+        }
+        .tab.active { background: #667eea; color: white; transform: translateY(-2px); }
+        .input-group { margin-bottom: 25px; }
+        input, textarea { 
+            width: 100%; 
+            padding: 18px; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 12px; 
+            font-size: 16px; 
+            transition: all 0.3s; 
+            box-sizing: border-box;
+        }
+        input:focus, textarea:focus { 
+            outline: none; 
+            border-color: #667eea; 
+            box-shadow: 0 0 0 4px rgba(102,126,234,0.1); 
+        }
+        textarea { min-height: 140px; resize: vertical; font-family: inherit; }
+        .btn { 
+            width: 100%; 
+            padding: 18px; 
+            border: none; 
+            border-radius: 12px; 
+            font-size: 18px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            margin-bottom: 15px; 
+        }
+        .btn-primary { background: #667eea; color: white; }
+        .btn-primary:hover:not(:disabled) { background: #5a67d8; transform: translateY(-2px); }
+        .btn-success { background: #10b981; color: white; }
+        .btn-success:hover { background: #059669; }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .user-bar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 20px; 
+            background: #f8f9fa; 
+            border-radius: 12px; 
+            margin-bottom: 25px; 
+        }
+        .prompts-grid { display: grid; gap: 25px; }
+        .prompt-card { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            border-left: 5px solid #667eea; 
+        }
+        .prompt-title { font-size: 1.5rem; font-weight: 700; color: #1f2937; margin-bottom: 12px; }
+        .prompt-content { color: #4b5563; line-height: 1.7; margin-bottom: 15px; font-size: 1.1rem; }
+        .prompt-meta { color: #6b7280; font-size: 0.95rem; }
+        .message { 
+            padding: 18px; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+            text-align: center; 
+            font-weight: 600; 
+        }
+        .message.success { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+        .message.error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+        @media (max-width: 768px) { .header h1 { font-size: 2.2rem; } .content { padding: 25px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>AI Prompt Library</h1>
+            <div class="sponsor">Sponsored by <a href="https://codeninjas.com">Code Ninjas</a></div>
+        </div>
+
+        <div class="content">
+            <!-- AUTH -->
+            <div id="auth-container" class="card">
+                <div class="tabs">
+                    <button class="tab active" data-mode="login">Login</button>
+                    <button class="tab" data-mode="signup">Sign Up</button>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="user-email" class="form-control" placeholder="Email address">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="user-password" class="form-control" placeholder="Password">
+                </div>
+                <button id="auth-btn" class="btn btn-primary">Login</button>
+                <div id="auth-message" class="message" style="display: none;"></div>
+            </div>
+
+            <!-- APP - HIDDEN BY DEFAULT -->
+            <div id="app-container" style="display: none;">
+                <div class="user-bar">
+                    <div id="user-name">Loading...</div>
+                    <button id="logout-btn" class="btn-logout">Logout</button>
+                </div>
+
+                <div class="card">
+                    <h2>➕ Upload New Prompt</h2>
+                    <div class="input-group">
+                        <input type="text" id="title-input" class="form-control" placeholder="Prompt title">
+                    </div>
+                    <div class="input-group">
+                        <textarea id="content-input" class="form-control" placeholder="Enter your AI prompt..."></textarea>
+                    </div>
+                    <button id="upload-prompt-btn" class="btn btn-success">Upload Prompt</button>
+                    <div id="upload-message" class="message" style="display: none;"></div>
+                </div>
+
+                <div class="card">
+                    <h2>📚 All Prompts</h2>
+                    <button id="load-prompts-btn" class="btn btn-primary" style="width: auto; margin-bottom: 20px;">Refresh</button>
+                    <div id="prompts-display" class="prompts-grid"></div>
+                    <div id="load-message" class="message" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Your PromptLibrary config
+        const firebaseConfig = {
+            apiKey: "AIzaSyA9We0cjNF3w4j65OC-7R_9mhcAQ3rKqXA",
+            authDomain: "promptlibrary-6b9be.firebaseapp.com",
+            projectId: "promptlibrary-6b9be",
+            storageBucket: "promptlibrary-6b9be.firebasestorage.app",
+            messagingSenderId: "831023281653",
+            appId: "1:831023281653:web:42a6f2138f1346bf841cbc"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        let currentUser = null;
+
+        // Elements
+        const authContainer = document.getElementById('auth-container');
+        const appContainer = document.getElementById('app-container');
+        const authBtn = document.getElementById('auth-btn');
+        const uploadBtn = document.getElementById('upload-prompt-btn');
+        const loadBtn = document.getElementById('load-prompts-btn');
+
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelector('.tab.active').classList.remove('active');
+                this.classList.add('active');
+                const isSignup = this.dataset.mode === 'signup';
+                authBtn.textContent = isSignup ? 'Sign Up' : 'Login';
+            });
+        });
+
+        // Auth
+        authBtn.addEventListener('click', async () => {
+            const email = document.getElementById('user-email').value.trim();
+            const password = document.getElementById('user-password').value.trim();
+
+            if (!email || !password) {
+                showMessage('auth-message', 'Enter email & password', 'error');
+                return;
+            }
+
+            try {
+                const isSignup = authBtn.textContent === 'Sign Up';
+                if (isSignup) {
+                    await auth.createUserWithEmailAndPassword(email, password);
+                } else {
+                    await auth.signInWithEmailAndPassword(email, password);
+                }
+            } catch (error) {
+                showMessage('auth-message', error.message, 'error');
+            }
+        });
+
+        // Auth state
+        auth.onAuthStateChanged(user => {
+            currentUser = user;
+            if (user) {
+                authContainer.style.display = 'none';
+                appContainer.style.display = 'block';
+                document.getElementById('user-name').textContent = `Hi ${user.email}`;
+                loadPrompts();
+            } else {
+                authContainer.style.display = 'block';
+                appContainer.style.display = 'none';
+            }
+        });
+
+        // Logout
+        document.getElementById('logout-btn').onclick = () => auth.signOut();
+
+        // UPLOAD - CLICK WORKS
+        uploadBtn.onclick = async () => {
+            const title = document.getElementById('title-input').value.trim();
+            const content = document.getElementById('content-input').value.trim();
+
+            if (!title || !content || !currentUser) {
+                showMessage('upload-message', 'Fill title & content + login', 'error');
+                return;
+            }
+
+            try {
+                await db.collection('prompts').add({
+                    title,
+                    content,
+                    author: currentUser.email,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                showMessage('upload-message', '✅ Uploaded!', 'success');
+                document.getElementById('title-input').value = '';
+                document.getElementById('content-input').value = '';
+                loadPrompts();
+            } catch (e) {
+                showMessage('upload-message', 'Upload failed: ' + e.message, 'error');
+            }
+        };
+
+        // Load prompts
+        async function loadPrompts() {
+            const container = document.getElementById('prompts-display');
+            container.innerHTML = 'Loading...';
+
+            try {
+                const snapshot = await db.collection('prompts').orderBy('timestamp', 'desc').get();
+                container.innerHTML = '';
+
+                if (snapshot.empty) {
+                    container.innerHTML = 'No prompts. Upload first!';
+                    return;
+                }
+
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const card = document.createElement('div');
+                    card.className = 'prompt-card';
+                    card.innerHTML = `
+                        <div class="prompt-title">${data.title}</div>
+                        <div class="prompt-content">${data.content}</div>
+                        <div class="prompt-meta">${data.author} - ${data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'now'}</div>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (e) {
+                container.innerHTML = 'Error loading. Check Firestore.';
+            }
+        }
+
+        loadBtn.onclick = loadPrompts;
+
+        function showMessage(id, msg, type) {
+            const el = document.getElementById(id);
+            el.textContent = msg;
+            el.className = `message ${type}`;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 3000);
+        }
+    </script>
+</body>
+</html>
