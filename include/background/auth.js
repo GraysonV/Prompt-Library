@@ -6,7 +6,7 @@ const signInRedirect = "/browse.html"
 auth.onAuthStateChanged(user => {
     currentUser = user;
     if (user) {
-				window.location.replace(signInRedirect);
+        window.location.replace(signInRedirect);
     }
 });
 

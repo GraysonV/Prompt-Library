@@ -14,11 +14,12 @@ async function loadPrompts() {
 
         snapshot.forEach(doc => {
             const data = doc.data();
+            console.log(data);
             const card = document.createElement('div');
             card.className = 'prompt-card';
             card.innerHTML = `
-                <div class="prompt-title"><h3>${data.title}</h3></div>
-                <div class="prompt-content"><p>${data.content}</p></div>
+                <div class="prompt-title"><h3>${escapeHtml(data.title)}</h3></div>
+                <div class="prompt-content"><p>${escapeHtml(data.content)}</p></div>
                 <div class="prompt-meta"><p><small>${data.author} - ${data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'now'}</small></p></div>
             `;
             container.appendChild(card);

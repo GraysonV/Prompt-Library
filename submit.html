@@ -15,27 +15,21 @@
 		<link href="/style.css" rel="stylesheet" type="text/css" media="all">
 	</head>
 	<body>
-		<span id="page" hidden>sign-in</span>
+		<span id="page" hidden>submit</span>
 		<div class="flex-wrapper">
 			<div id="header"></div>
 
 			<div id="content">
 				<div class="center">
-					<h1>Sign In</h1>
-					<p>Enter your username and password to sign in to your account.</p>
+					<h1>Submit Prompt</h1>
+					<p>Enter your prompt and give it a title.</p>
 					<form>
-						<label for="user-email">Username/Email</label><br>
-						<input type="email" id="user-email" name="user-email" placeholder="Username/Email" value=""><br><br>
-						<label for="user-password">Password</label><br>
-						<input type="password" id="user-password" name="user-password" placeholder="Password" value=""><br><br>
+						<label for="input-title">Prompt Title</label><br>
+						<input type="text" id="input-title" name="input-title" placeholder="Prompt title" value=""><br><br>
+						<label>Prompt Content</label><br>
+						<textarea class="textarea-large" id="input-content" placeholder="Enter your AI prompt..."></textarea><br><br>
 					</form>
-					<button id="user-submit">Sign in</button>
-					<small>
-						<p>
-							<a href="/password-reset.html">Forgot Password?</a>
-						</p>
-						<p>New here? <a href="/sign-up.html">Sign up</a> and start contributing prompts!</p>
-					</small>
+					<button id="user-submit">Submit Prompt</button>
 
 				</div>
 			</div>
@@ -45,7 +39,7 @@
 		</div>
 
 		<script src="/include/background/prompt.js"></script>
-		<script src="/include/background/auth.js"></script>
+		<script src="/include/background/submit.js"></script>
 		<script src="/include/header.js"></script>
 		<script src="/include/footer.js"></script>
 	</body>

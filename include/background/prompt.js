@@ -1,7 +1,7 @@
 // Prompt Library config
 const firebaseConfig = {
     apiKey: "",
-    authDomain: "",
+    authDomain: "com",
     projectId: "",
     storageBucket: "",
     messagingSenderId: "",
@@ -13,6 +13,16 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 let currentUser = null;
+
+/* https://stackoverflow.com/questions/1787322/#:~:text=There%20is */
+function escapeHtml(text) {
+  return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+}
 
 // Elements
 //const authContainer = document.getElementById('auth-container');

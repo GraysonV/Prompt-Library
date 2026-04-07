@@ -45,12 +45,22 @@ label {
 
 input[type=text], input[type=email], input[type=password] {
 	padding: 0.25em;
+	width: calc(100% - 18px);
 	font-size: large;
+}
+
+textarea {
+	resize: vertical;
+	padding: 0.25em;
+	width: calc(100% - 1em);
+	min-height: 100px;
+	font-family: noto-sans;
 }
 
 .header {
 	overflow: hidden;
 	background-color: #187ABF;
+	background-image: url("images/navbar_background_2.png");
 	box-shadow: 0px 2px 5px darkgray;
 	color: white;
 }
@@ -100,6 +110,9 @@ input[type=text], input[type=email], input[type=password] {
 	cursor: pointer;
 }
 
+.search-container input[type=text] {
+	width: auto;
+}
 
 .search-button {
 	color: white;
@@ -201,6 +214,7 @@ input[type=text], input[type=email], input[type=password] {
 .center {
 	max-width: 600px;
   margin: 0 auto;
+	padding: 0px;
   justify-content: center;
   align-items: center;
 	text-align: center;
