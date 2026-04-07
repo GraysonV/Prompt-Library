@@ -1,7 +1,7 @@
 // Prompt Library config
 const firebaseConfig = {
     apiKey: "",
-    authDomain: "com",
+    authDomain: "",
     projectId: "",
     storageBucket: "",
     messagingSenderId: "",
