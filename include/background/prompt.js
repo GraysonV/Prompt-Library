@@ -24,55 +24,21 @@ function escapeHtml(text) {
       .replace(/'/g, "&#039;");
 }
 
-// Elements
-//const authContainer = document.getElementById('auth-container');
-//const appContainer = document.getElementById('app-container');
-//const uploadBtn = document.getElementById('upload-prompt-btn');
-//const loadBtn = document.getElementById('load-prompts-btn');
-
-// Tab switching
-// document.querySelectorAll('.tab').forEach(tab => {
-//     console.log("Hello!!!");
-//     tab.addEventListener('click', function() {
-//         document.querySelector('.tab.active').classList.remove('active');
-//         this.classList.add('active');
-//     });
-// });
+// Makes a subject value more human-readable (E.g. "computer_science" -> "Computer Science")
+function beautifySubject(text) {
+    let tokens = text.split("_");
+    let result = "";
+    tokens.forEach(part => {
+        result += part.charAt(0).toUpperCase() + String(part).slice(1) + " ";
+    });
+    result = result.trim();
+    return result;
+}
 
 // =========== Auth code has been moved to the header script for persistent stuff and auth.js for login.
 
 // Logout
 //document.getElementById('logout-btn').onclick = () => auth.signOut();
-
-// UPLOAD - CLICK WORKS
-/*
-uploadBtn.onclick = async () => {
-    const title = document.getElementById('title-input').value.trim();
-    const content = document.getElementById('content-input').value.trim();
-
-    if (!title || !content || !currentUser) {
-        showMessage('upload-message', 'Fill title & content + login', 'error');
-        return;
-    }
-
-    try {
-        await db.collection('prompts').add({
-            title,
-            content,
-            author: currentUser.email,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        showMessage('upload-message', '✅ Uploaded!', 'success');
-        document.getElementById('title-input').value = '';
-        document.getElementById('content-input').value = '';
-        loadPrompts();
-    } catch (e) {
-        showMessage('upload-message', 'Upload failed: ' + e.message, 'error');
-    }
-};
-*/
-
-//loadBtn.onclick = loadPrompts;
 
 function showMessage(id, msg, type) {
   alert(id);

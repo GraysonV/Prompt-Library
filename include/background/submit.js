@@ -14,6 +14,7 @@ uploadBtn.onclick = async () => {
     // Escape HTML code to avoid exploits.
     const title = escapeHtml(document.getElementById('input-title').value.trim());
     const content = escapeHtml(document.getElementById('input-content').value.trim());
+    const subject = escapeHtml(document.getElementById('input-subject').value.trim());
 
     if (!title || !content || !currentUser) {
         window.location.replace(signedOutRedirect);
@@ -25,7 +26,8 @@ uploadBtn.onclick = async () => {
             title,
             content,
             author: currentUser.email,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            subject
         });
         // Upload successful
         uploadSuccess()

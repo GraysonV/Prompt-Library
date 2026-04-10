@@ -1,6 +1,7 @@
 // Auth
 const authBtn = document.getElementById('user-submit');
-const signInRedirect = "/browse.html"
+const signInRedirect = "/browse.html";
+const signInError = document.getElementById("sign-in-error");
 
 // Redirect to browse page if user is already signed in.
 auth.onAuthStateChanged(user => {
@@ -15,8 +16,11 @@ authBtn.addEventListener('click', async () => {
     const password = document.getElementById('user-password').value.trim();
 
     if (!email || !password) {
-        showMessage('auth-message', 'Enter email & password', 'error');
+        signInError.innerHTML = "Enter email & password";
+        //showMessage('auth-message', 'Enter email & password', 'error');
         return;
+    } else {
+        signInError.innerHTML = "";
     }
 
     try {
@@ -30,6 +34,17 @@ authBtn.addEventListener('click', async () => {
             window.location.replace(signInRedirect);
         }
     } catch (error) {
-        showMessage('auth-message', error.message, 'error');
+        switch(error.code) {
+            case "auth/invalid-email":
+                signInError.innerHTML = "Please enter a valid email address.";
+                break;
+            case "auth/invalid-credential":
+                signInError.innerHTML = "Incorrect email or password. Please try again.";
+                break;
+            default:
+                signInError.innerHTML = error.code;
+                break;
+        }
+        //showMessage('auth-message', error.message, 'error');
     }
 });

@@ -17,6 +17,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 button, input[type=submit] {
+	margin: 1em;
 	color: white;
 	padding: 0.5em;
 	background: #07A881;
@@ -103,6 +104,7 @@ textarea {
 .header .search-container button {
 	float: right;
 	padding: 6px 10px;
+	margin: 0;
 	margin-top: 8px;
 	margin-right: 16px;
 	font-size: 17px;
@@ -218,6 +220,10 @@ textarea {
   justify-content: center;
   align-items: center;
 	text-align: center;
+}
+
+.sign-in-error {
+	color: red;
 }
 
 .prompt-card {

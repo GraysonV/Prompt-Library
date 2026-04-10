@@ -22,12 +22,52 @@
 			<div id="content">
 				<div class="center">
 					<h1>Submit Prompt</h1>
-					<p>Enter your prompt and give it a title.</p>
+					<p>Enter your prompt and give it a title and subject.</p>
 					<form>
 						<label for="input-title">Prompt Title</label><br>
 						<input type="text" id="input-title" name="input-title" placeholder="Prompt title" value=""><br><br>
 						<label>Prompt Content</label><br>
 						<textarea class="textarea-large" id="input-content" placeholder="Enter your AI prompt..."></textarea><br><br>
+						<label>Subject</label><br>
+						<select id="input-subject" name="input-subject">
+							<option value="none">None</option>
+							<option value="other">Other</option>
+							<optgroup label="Health">
+								<option value="general_health">General Health</option>
+								<option value="physical_education">Physical Education</option>
+								<option value="psychology">Psychology</option>
+							</optgroup>
+
+							<optgroup label="Language">
+								<option value="language_arts">Language Arts</option>
+								<option value="language_studies">Language Studies</option>
+							</optgroup>
+
+							<optgroup label="Mathematics">
+								<option value="general_math">General Math</option>
+								<option value="algebra">Algebra</option>
+								<option value="calculus">Calculus</option>
+								<option value="pre_calculus">Pre-Calculus</option>
+								<option value="statistics">Statistics</option>
+							</optgroup>
+
+							<optgroup label="Science">
+								<option value="general_science">General Science</option>
+								<option value="biology">Biology</option>
+								<option value="chemistry">Chemistry</option>
+								<option value="computer_science">Computer Science</option>
+								<option value="engineering">Engineering</option>
+								<option value="physics">Physics</option>
+							</optgroup>
+
+							<optgroup label="World">
+								<option value="art">Art</option>
+								<option value="history">History</option>
+								<option value="films">Films</option>
+								<option value="social_studies">Social Studies</option>
+							</optgroup>
+
+						</select>
 					</form>
 					<button id="user-submit">Submit Prompt</button>
 
