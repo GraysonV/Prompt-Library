@@ -15,25 +15,32 @@
 		<link href="/style.css" rel="stylesheet" type="text/css" media="all">
 	</head>
 	<body>
-		<span id="page" hidden>sign-in</span>
+		<span id="page" hidden>sign-up</span>
 		<div class="flex-wrapper">
 			<div id="header"></div>
 
 			<div id="content">
 				<div class="center">
-					<h1>Sign In</h1>
-					<p>Enter your username and password to sign in to your account.</p>
+					<h1>Sign Up</h1>
+					<p>Fill out your information and create an account.</p>
 					<form>
 						<label for="user-email">Email Address</label><br>
-						<input type="email" id="user-email" name="user-email" placeholder="Email Address" value=""><br><br>
+						<input type="email" id="user-email" name="user-email" placeholder="Email Address" value=""><br>
+						<label for="user-name">Username</label><br>
+						<input type="text" id="user-name" name="user-name" placeholder="Username" value=""><br><br>
 						<label for="user-password">Password</label><br>
-						<input type="password" id="user-password" name="user-password" placeholder="Password" value=""><br><br>
+						<input type="password" id="user-password" name="user-password" placeholder="Password" value=""><br>
+						<label for="user-password">Confirm Password</label><br>
+						<input type="password" id="user-password-confirm" name="user-password" placeholder="Retype Password" value=""><br><br>
+            <input type="checkbox" id="user-consent">
+            <label class="label-normal" for="user-consent">I agree that I am above the age of 13 before creating this account.</label>
 					</form>
 					<small id="sign-in-error" class="sign-in-error"></small>
-					<br><br>
-					<button id="user-submit">Sign in</button><a href="/password-reset.html"><button class="button-alt" id="user-forgot-password">Forgot Password</button></a>
+					<br>
+          <br>
+					<button id="user-submit">Sign up!</button>
 					<small>
-						<h3>New here? <a href="/sign-up.html">Sign up</a>!</h3>
+						<h3>Already have an account? <a href="/sign-in.html">Sign in</a>!</h3>
 					</small>
 
 				</div>

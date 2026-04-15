@@ -12,8 +12,9 @@ auth.onAuthStateChanged(user => {
 });
 
 authBtn.addEventListener('click', async () => {
+    const isSignIn = document.getElementById("page").textContent === "sign-in";
     const email = document.getElementById('user-email').value.trim();
-    const password = document.getElementById('user-password').value.trim();
+    const password = document.getElementById('user-password').value;
 
     if (!email || !password) {
         signInError.innerHTML = "Enter email & password";
@@ -24,10 +25,21 @@ authBtn.addEventListener('click', async () => {
     }
 
     try {
-        const isSignIn = document.getElementById("page").textContent === "sign-in";
         if (!isSignIn) {
-            await auth.createUserWithEmailAndPassword(email, password);
-            // Successfully creates account and redirect to homepage.
+            const passwordConfirm = document.getElementById('user-password-confirm').value;
+            const consented = document.getElementById('user-consent').checked;
+
+            if (consented) {
+                if (passwordConfirm === password) {
+                    await auth.createUserWithEmailAndPassword(email, password);
+                    // Successfully creates account and redirect to homepage.
+                    window.location.replace(signInRedirect);
+                } else {
+                    signInError.innerHTML = "Passwords must match."
+                }
+            } else {
+                signInError.innerHTML = "Please agree to the conditions before creating an account."
+            }
         } else {
             await auth.signInWithEmailAndPassword(email, password);
             // Successfully logs in and redirects to homepage.
@@ -40,6 +52,9 @@ authBtn.addEventListener('click', async () => {
                 break;
             case "auth/invalid-credential":
                 signInError.innerHTML = "Incorrect email or password. Please try again.";
+                break;
+            case "auth/weak-password":
+                signInError.innerHTML = "Password must contain at least 6 characters.";
                 break;
             default:
                 signInError.innerHTML = error.code;
