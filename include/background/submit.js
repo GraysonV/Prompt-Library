@@ -25,7 +25,7 @@ uploadBtn.onclick = async () => {
         await db.collection('prompts').add({
             title,
             content,
-            author: currentUser.email,
+            author: getDisplayName(currentUser),
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             subject
         });

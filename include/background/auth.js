@@ -1,4 +1,7 @@
 // Auth
+const AUTH_USERNAME_MIN_LENGTH = 3
+const AUTH_USERNAME_MAX_LENGTH = 32
+
 const authBtn = document.getElementById('user-submit');
 const signInRedirect = "/browse.html";
 const signInError = document.getElementById("sign-in-error");
@@ -28,17 +31,41 @@ authBtn.addEventListener('click', async () => {
         if (!isSignIn) {
             const passwordConfirm = document.getElementById('user-password-confirm').value;
             const consented = document.getElementById('user-consent').checked;
+            const username = document.getElementById('user-name').value.trim();
 
             if (consented) {
-                if (passwordConfirm === password) {
-                    await auth.createUserWithEmailAndPassword(email, password);
-                    // Successfully creates account and redirect to homepage.
-                    window.location.replace(signInRedirect);
+                if (username.length >= AUTH_USERNAME_MIN_LENGTH) {
+                    if (username.length < AUTH_USERNAME_MAX_LENGTH) {
+                        if (passwordConfirm === password) {
+                            let success = true;
+                            await auth.createUserWithEmailAndPassword(email, password)
+                            .catch(function(error) {
+                                success = false;
+                            });
+                            console.log("TEST");
+                            // Successfully creates account
+                            if (success) {
+                                currentUser.updateProfile({
+                                    displayName: username 
+                                });
+                                // await db.set(ref(db, 'users/' + userId), {
+                                //         username: email
+                                //     });
+                                // Upload successful
+                                //  and redirect to homepage.
+                                window.location.replace(signInRedirect);
+                            }
+                        } else {
+                            signInError.innerHTML = "Passwords must match."
+                        }
+                    } else {
+                        signInError.innerHTML = `Display name cannot be greater than ${AUTH_USERNAME_MAX_LENGTH} characters long.`;
+                    }
                 } else {
-                    signInError.innerHTML = "Passwords must match."
+                    signInError.innerHTML = `Display name must be at least ${AUTH_USERNAME_MIN_LENGTH} characters long.`;
                 }
             } else {
-                signInError.innerHTML = "Please agree to the conditions before creating an account."
+                signInError.innerHTML = "Please agree to the conditions before creating an account.";
             }
         } else {
             await auth.signInWithEmailAndPassword(email, password);
@@ -60,6 +87,7 @@ authBtn.addEventListener('click', async () => {
                 signInError.innerHTML = error.code;
                 break;
         }
+
         //showMessage('auth-message', error.message, 'error');
     }
 });

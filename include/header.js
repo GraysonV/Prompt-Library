@@ -80,11 +80,7 @@ const headerSignIn = document.getElementById('header-signin');
 auth.onAuthStateChanged(user => {
     currentUser = user;
     if (user) {
-				let username = user.email;
-				let atIndex = username.indexOf("@")
-				if (atIndex != -1) {
-					username = username.substring(0, atIndex);
-				}
+				let username = getDisplayName(user);
         headerUserProfile.innerHTML = `${username} &#9658;`;
         headerSignIn.style.display = "none";
         // loadPrompts();

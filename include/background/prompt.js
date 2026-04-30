@@ -50,3 +50,19 @@ function showMessage(id, msg, type) {
     // el.style.display = 'block';
     // setTimeout(() => el.style.display = 'none', 3000);
 }
+
+// Returns the display name of a user, if it does not exist, use the email address with a trimmed @ sign.
+function getDisplayName(user) {
+    if (user != null) {
+        let username  = user.displayName;
+        if (username == null) {
+            username = user.email;
+            let atIndex = username.indexOf("@")
+            if (atIndex != -1) {
+                username = username.substring(0, atIndex);
+            }
+        }
+        return username;
+    }
+    return "Unknown";
+}
