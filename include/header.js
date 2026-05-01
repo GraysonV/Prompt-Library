@@ -15,7 +15,7 @@ let headerHTML = `
 		<div class="dropdown">
 			<div class="dropdown-content" id="header-user-dropdown">
 				<a href="#">Profile</a>
-				<a href="#">Settings</a>
+				<a href="/settings.html">Settings</a>
 				<a href="#" onclick="signOut();">Sign Out</a>
 			</div>
 		</div>

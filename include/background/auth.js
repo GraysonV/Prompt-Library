@@ -45,15 +45,20 @@ authBtn.addEventListener('click', async () => {
                             console.log("TEST");
                             // Successfully creates account
                             if (success) {
+                                // This may be a race condition or else the function fails.
                                 currentUser.updateProfile({
                                     displayName: username 
+                                }).then(() => {
+                                    window.location.replace(signInRedirect);
+                                }).catch((error) => {
+                                    // TODO: Display name change fails, likely won't happen but still needs checks.
+                                    window.location.replace(signInRedirect);
                                 });
                                 // await db.set(ref(db, 'users/' + userId), {
                                 //         username: email
                                 //     });
                                 // Upload successful
                                 //  and redirect to homepage.
-                                window.location.replace(signInRedirect);
                             }
                         } else {
                             signInError.innerHTML = "Passwords must match."

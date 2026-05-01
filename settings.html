@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="keywords" content="Prompt Library">
+		<meta property="og:site_name" content="Prompt Library">
+		<meta name="author" content="Code Ninjas Winnipeg">
+    <!-- Firebase Compat v10 -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+
+		<title>Prompt Library</title>
+		<link href="/style.css" rel="stylesheet" type="text/css" media="all">
+	</head>
+	<body>
+
+		<div class="flex-wrapper">
+			<div id="header"></div>
+
+			<div id="content">
+        <div class="center">
+          <h1>Account Settings</h1>
+          
+          <h2>Display Name</h2>
+          <label for="settings-username">Change Display Name</label><br>
+          <input type="text" value="" id="settings-username">
+          <br>
+          <h2>Reset Password</h2>
+          <label for="settings-password-current">Current Password</label><br>
+          <input type="password" value="" id="settings-password-current" placeholder="Current Password">
+          <label for="settings-password-new1">New Password</label><br>
+          <input type="password" value="" id="settings-password-new1" placeholder="Password" >
+          <label for="settings-password-new2">Retype New Password</label><br>
+          <input type="password" value="" id="settings-password-new2" placeholder="Retype Password">
+          <br><br>
+          <button onclick="saveSettings();">Save Settings</button>
+
+        </div>
+			</div>
+
+			<div id="footer"></div>
+
+		</div>
+
+		<script src="/include/background/prompt.js"></script>
+		<script src="/include/background/settings.js"></script>
+		<script src="/include/header.js"></script>
+		<script src="/include/footer.js"></script>
+	</body>
+</html>
