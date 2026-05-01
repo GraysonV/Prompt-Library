@@ -80,9 +80,7 @@ function tryPasswordUpdate(success) {
     });
 
   } else {
-    if (success != null) {
-      window.location.reload();
-    }
+    window.location.reload();
   }
 
 }
