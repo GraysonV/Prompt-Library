@@ -14,7 +14,7 @@ let headerHTML = `
 		<a href="#" class="dropbtn" id="header-user-profile" onclick="headerUserDropdownToggle();"></a>
 		<div class="dropdown">
 			<div class="dropdown-content" id="header-user-dropdown">
-				<a href="#">Profile</a>
+				<!-- <a href="#">Profile</a> -->
 				<a href="/settings.html">Settings</a>
 				<a href="#" onclick="signOut();">Sign Out</a>
 			</div>
@@ -22,10 +22,55 @@ let headerHTML = `
 
   </div>
 		<div class="search-container">
-			<form action="/browse.html">
+			<label id="header-input-subject-label" for="header-input-subject">Find a prompt on, </label>
+			<select id="header-input-subject" name="header-input-subject">
+				<option value="all"></option>
+				<option value="all">All Prompts</option>
+				<optgroup label="Misc.">
+					<option value="none">None</option>
+					<option value="other">Other</option>
+				</optgroup>
+				<optgroup label="Health">
+					<option value="general_health">General Health</option>
+					<option value="physical_education">Physical Education</option>
+					<option value="psychology">Psychology</option>
+				</optgroup>
+
+				<optgroup label="Language">
+					<option value="language_arts">Language Arts</option>
+					<option value="language_studies">Language Studies</option>
+				</optgroup>
+
+				<optgroup label="Mathematics">
+					<option value="general_math">General Math</option>
+					<option value="algebra">Algebra</option>
+					<option value="calculus">Calculus</option>
+					<option value="pre_calculus">Pre-Calculus</option>
+					<option value="statistics">Statistics</option>
+				</optgroup>
+
+				<optgroup label="Science">
+					<option value="general_science">General Science</option>
+					<option value="biology">Biology</option>
+					<option value="chemistry">Chemistry</option>
+					<option value="computer_science">Computer Science</option>
+					<option value="engineering">Engineering</option>
+					<option value="physics">Physics</option>
+				</optgroup>
+
+				<optgroup label="World">
+					<option value="art">Art</option>
+					<option value="history">History</option>
+					<option value="films">Films</option>
+					<option value="social_studies">Social Studies</option>
+				</optgroup>
+			</select>
+
+
+			<!-- <form action="/browse.html">
 				<input type="text" placeholder="Search" name="q">
 				<button type="submit"><i class="search-button">&#x1F50E;&#xFE0E;</i><span class="header-mobile">Search Prompt Library&nbsp;</span></button>
-			</form>
+			</form> -->
 		</div>
 	</div>
 </div>
@@ -93,4 +138,15 @@ auth.onAuthStateChanged(user => {
 function signOut() {
 	auth.signOut();
 	window.location.reload();
+}
+
+let headerSubjectSelect = document.getElementById("header-input-subject");
+
+headerSubjectSelect.onchange = (event) => {
+    var inputText = event.target.value;
+
+    let url = "/browse.html";
+    url += '?s=' + inputText;
+
+    window.location.href = url;
 }

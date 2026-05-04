@@ -1,6 +1,8 @@
 const container = document.getElementById('prompts-display');
 const subjectSelect = document.getElementById('input-subject');
 const orderSelect = document.getElementById('input-order');
+const htmlThrobber = `<img class="throbber-spin" src="/images/throbber.svg" alt="Loading...">`;
+
 // const buttonPrompts = document.getElementById('button-prompts');
 const SCROLL_BOTTOM_OFFSET = -50;
 const limit = 10;
@@ -21,13 +23,13 @@ if (orderQuery == null) {
 } else {
     orderSelect.value = orderQuery;
 }
-console.log(orderQuery);
+// console.log(orderQuery);
 
 // Load prompts, returns true or false if it loads them.
 async function loadPrompts() {
     
     let newContainer = document.createElement("div");
-    newContainer.innerHTML = '<p>Loading...</p>';
+    newContainer.innerHTML = htmlThrobber;
     container.appendChild(newContainer);
     // buttonPrompts.hidden = true;
     scrollPaused = true;
@@ -107,19 +109,19 @@ addEventListener("scroll", function() {
 subjectSelect.onchange = (event) => {
     var inputText = event.target.value;
 
-    let url = window.location.href.split("?")[0];
+    let url = "/browse.html";
     url += '?s=' + inputText;
 
-    if (searchQuery != null){
-        url += '&q=' + searchQuery;
-    }
-    if (orderQuery != null){
-        url += '&o=' + orderQuery;
-    }
+    // if (searchQuery != null){
+    //     url += '&q=' + searchQuery;
+    // }
+    // if (orderQuery != null){
+    //     url += '&o=' + orderQuery;
+    // }
 
     window.location.href = url;
 
-    console.log(inputText);
+    // console.log(inputText);
 }
 
 orderSelect.onchange = (event) => {
@@ -137,5 +139,5 @@ orderSelect.onchange = (event) => {
 
     window.location.href = url;
 
-    console.log(inputText);
+    // console.log(inputText);
 }
