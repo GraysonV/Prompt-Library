@@ -10,7 +10,7 @@ let footerHTML = `
 <div>
   <hr>
   <p>
-    <small>&copy;${footerYear} Code Ninjas Winnipeg</small>
+    <small>&copy;${footerYear} Code Ninjas Winnipeg | Credits: Dylan Sanchez, Grayson Verspeek</small>
   </p>
 </div>
 `;
