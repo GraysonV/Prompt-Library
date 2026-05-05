@@ -7,11 +7,11 @@ let headerHTML = `
 
 	<a onclick="toggleMenu();" href="#" class="header-mobile"><strong>&#8801;</strong> Menu</a>
 	<div class="header-menu-hidden" id="header-buttons">
-		<a href="/">Home</a>
+		<a href="/index.html">Home</a>
 		<a href="/browse.html">Browse</a>
 		<a href="/submit.html">Submit</a>
 		<a href="/sign-in.html" id="header-signin" style="display:none;">Sign In</a>
-		<a href="#" class="dropbtn" id="header-user-profile" onclick="headerUserDropdownToggle();"></a>
+		<a href="#" class="dropbtn" id="header-user-profile" onclick="headerUserDropdownToggle(event);"></a>
 		<div class="dropdown">
 			<div class="dropdown-content" id="header-user-dropdown">
 				<!-- <a href="#">Profile</a> -->
@@ -97,25 +97,63 @@ function toggleMenu() {
 
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
-function headerUserDropdownToggle() {
+
+function headerUserDropdownToggle(event) {
+	if (event != null) {
+		event.preventDefault();
+	}
+	const trigger = document.getElementById('header-user-profile');
 	let myDropdown = document.getElementById("header-user-dropdown");
-		if (myDropdown.style.display == "block") {
-      myDropdown.style.display = "none";
-    }
-		else {
-			myDropdown.style.display = "block";
+	if (!myDropdown) return;
+
+	// Move dropdown to body once to avoid being clipped by header overflow
+	if (myDropdown.dataset.moved !== 'true') {
+		document.body.appendChild(myDropdown);
+		myDropdown.dataset.moved = 'true';
+		myDropdown.style.position = 'absolute';
+	}
+
+	// Toggle visibility
+	if (myDropdown.style.display === 'block') {
+		myDropdown.style.display = 'none';
+		return;
+	}
+
+	// Position dropdown under the trigger
+	const rect = trigger.getBoundingClientRect();
+	const scrollY = window.scrollY || window.pageYOffset;
+	const left = Math.max(8, rect.left);
+	const top = rect.bottom + scrollY + 4; // small gap
+	myDropdown.style.left = `${left}px`;
+	myDropdown.style.top = `${top}px`;
+	myDropdown.style.display = 'block';
+	myDropdown.style.zIndex = 9999;
+
+	// reposition on scroll/resize
+	const reposition = () => {
+		const r = trigger.getBoundingClientRect();
+		const sY = window.scrollY || window.pageYOffset;
+		myDropdown.style.left = `${Math.max(8, r.left)}px`;
+		myDropdown.style.top = `${r.bottom + sY + 4}px`;
+	};
+	// attach temporary listeners while open
+	const cleanup = (e) => {
+		if (!e) return;
+		if (!e.target.closest || (!e.target.closest('#header-user-dropdown') && !e.target.closest('.dropbtn') && !e.target.closest('#header-user-profile'))) {
+			myDropdown.style.display = 'none';
+			window.removeEventListener('scroll', reposition);
+			window.removeEventListener('resize', reposition);
+			window.removeEventListener('click', cleanup);
 		}
+	};
+	window.addEventListener('scroll', reposition);
+	window.addEventListener('resize', reposition);
+	// use capture click to ensure outside clicks close it
+	window.addEventListener('click', cleanup);
 }
 
 // Close the dropdown if the user clicks outside of it
-window.onclick = function(e) {
-  if (!e.target.matches('.dropbtn')) {
-  	let myDropdown = document.getElementById("header-user-dropdown");
-		if (myDropdown.style.display == "block") {
-      myDropdown.style.display = "none";
-    }
-  }
-}
+// click handling is managed per-dropdown open via headerUserDropdownToggle cleanup listener
 
 // Firebase integration
 // Auth state
@@ -126,7 +164,7 @@ auth.onAuthStateChanged(user => {
     currentUser = user;
     if (user) {
 				let username = getDisplayName(user);
-        headerUserProfile.innerHTML = `${username} &#9658;`;
+        headerUserProfile.innerHTML = `${username} &#9660;`;
         headerSignIn.style.display = "none";
         // loadPrompts();
     } else {
@@ -145,7 +183,7 @@ let headerSubjectSelect = document.getElementById("header-input-subject");
 headerSubjectSelect.onchange = (event) => {
     var inputText = event.target.value;
 
-    let url = "/browse.html";
+	let url = "/browse.html";
     url += '?s=' + inputText;
 
     window.location.href = url;
