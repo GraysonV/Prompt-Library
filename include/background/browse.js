@@ -91,6 +91,9 @@ function addCard(data, container) {
         <div class="prompt-title"><h3>${escapeHtml(data.title)}</h3></div>
         <div class="prompt-content"><p>${escapeHtml(data.content)}</p></div>
         <div class="prompt-meta"><p><small>${subject} - ${data.author} - ${data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'now'}</small></p></div>
+        <div>
+            <a onclick="navigator.clipboard.writeText('${data.content}');"><img title="Copy to clipboard" width=24px src="/images/copy.svg" alt="Copy"></a>
+        </div>
     `;
     container.appendChild(card);
 }
