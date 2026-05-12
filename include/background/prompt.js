@@ -51,6 +51,28 @@ function showMessage(id, msg, type) {
     // setTimeout(() => el.style.display = 'none', 3000);
 }
 
+// Every page must have a body element. I don't think that's too much to ask.
+let body = document.getElementsByTagName("body")[0];
+body.innerHTML += `
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <p id="popup-text"></p>
+  </div>
+</div>
+`;
+
+let popup = document.getElementById("popup");
+let popupText = document.getElementById("popup-text");
+
+function showPopup(msg) {
+    popupText.innerHTML = msg;
+  popup.style.display = "block";
+}
+
+popup.addEventListener("animationend", () => {
+  popup.style.display = "none";
+});
+
 // Returns the display name of a user, if it does not exist, use the email address with a trimmed @ sign.
 function getDisplayName(user) {
     if (user != null) {

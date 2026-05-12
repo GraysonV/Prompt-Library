@@ -92,13 +92,18 @@ function addCard(data, container) {
         <div class="prompt-content"><p>${escapeHtml(data.content)}</p></div>
         <div class="prompt-meta"><p><small>${subject} - ${data.author} - ${data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'now'}</small></p></div>
         <div>
-            <a onclick="navigator.clipboard.writeText('${data.content}');"><img title="Copy to clipboard" width=24px src="/images/copy.svg" alt="Copy"></a>
+            <a class="force-pointer" onclick="copyPromptToClipboard('${data.content}');"><img title="Copy to clipboard" width=24px src="/images/copy.svg" alt="Copy"></a>
         </div>
     `;
     container.appendChild(card);
 }
 
 finished != loadPrompts();
+
+function copyPromptToClipboard(prompt) {
+    navigator.clipboard.writeText(prompt);
+    showPopup("Text copied to clipboard.")
+}
 
 addEventListener("scroll", function() {
     if (!finished && !scrollPaused) {

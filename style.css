@@ -234,6 +234,11 @@ textarea {
 	animation: spinning 1s infinite linear;
 }
 
+.force-pointer {
+	cursor: pointer;
+}
+
+
 #header-user-profile  {
 	animation: fading 1s;
 }
@@ -266,6 +271,44 @@ textarea {
 @keyframes spinning {
 	0% {transform: rotate(0deg)}
 	100% {transform: rotate(359deg)}
+}
+
+/* Popup messages part of prompt.js */
+.popup {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  animation: popup-fade 2s;
+}
+
+/* Popup Content */
+.popup-content {
+  background-color: #fefefe;
+  text-align: center;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+}
+
+@-webkit-keyframes popup-fade {
+  0% {opacity: 0;}
+  25% {opacity:1 ;}
+  75% {opacity:1 ;}
+  100% {opacity:0 ;}
+}
+
+@keyframes popup-fade {
+  0% {opacity: 0;}
+  25% {opacity:1 ;}
+  75% {opacity:1 ;}
+  100% {opacity:0 ;}
 }
 
 #content {
