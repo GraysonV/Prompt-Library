@@ -311,6 +311,22 @@ textarea {
   100% {opacity:0 ;}
 }
 
+#img-copy:hover {
+	content: url("/images/copy_color.svg");
+}
+
+#img-chatgpt:hover {
+	content: url("/images/chatgpt_color.svg");
+}
+
+#img-claude:hover {
+	content: url("/images/claude_color.svg");
+}
+
+#img-google:hover {
+	content: url("/images/google_color.svg");
+}
+
 #content {
 	margin-left: 4em;
 }

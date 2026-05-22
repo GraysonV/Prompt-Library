@@ -92,10 +92,10 @@ function addCard(data, container) {
         <div class="prompt-content"><p>${escapeHtml(data.content)}</p></div>
         <div class="prompt-meta"><p><small>${subject} - ${data.author} - ${data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'now'}</small></p></div>
         <div>
-            <a class="force-pointer" onclick="copyPromptToClipboard('${data.content}');"><img title="Copy to clipboard" width=24px src="/images/copy.svg" alt="Copy"></a>
-            <a class="force-pointer" target="blank" href='https://chatgpt.com/?q=${data.content}'><img title="Open in ChatGPT" width=24px src="/images/chatgpt.svg" alt="ChatGPT"></a>
-            <a class="force-pointer" target="blank" href='https://claude.ai/new?q=${data.content}'><img title="Open in Claude" width=24px src="/images/claude.svg" alt="Claude"></a>
-            <a class="force-pointer" target="blank" href='https://google.com/?q=${data.content}'><img title="Open in Google" width=24px src="/images/google.svg" alt="Google"></a>
+            <a class="force-pointer" onclick="copyPromptToClipboard('${data.content}');"><img id="img-copy" title="Copy to clipboard" width=24px src="/images/copy.svg" alt="Copy"></a>
+            <a class="force-pointer" target="blank" href='https://chatgpt.com/?q=${data.content}'><img id="img-chatgpt" title="Open in ChatGPT" width=24px src="/images/chatgpt.svg" alt="ChatGPT"></a>
+            <a class="force-pointer" target="blank" href='https://claude.ai/new?q=${data.content}'><img id="img-claude" title="Open in Claude" width=24px src="/images/claude.svg" alt="Claude"></a>
+            <a class="force-pointer" target="blank" href='https://google.com/?q=${data.content}'><img id="img-google" title="Open in Google" width=24px src="/images/google.svg" alt="Google"></a>
         </div>
     `;
     container.appendChild(card);
