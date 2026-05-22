@@ -228,7 +228,7 @@ textarea {
 	animation: fading 1s;
 }
 
-.throbber-spin {
+.loading-spin {
 	max-width: 3em;
 	padding: 8px;
 	animation: spinning 1s infinite linear;
